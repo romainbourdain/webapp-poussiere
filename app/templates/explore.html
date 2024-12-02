@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Explorateur de Fichiers</title>
+  </head>
+  <body>
+    <h1>Explorateur de fichiers</h1>
+    <h2>Chemin actuel : /files/{{ path }}</h2>
+    <ul>
+      <li>
+        <a href="{{ url_for('explorer.explore', path=parent_path) }}">...</a>
+      </li>
+      {% for item in files %} {% if item.is_dir %}
+      <li>
+        <a
+          href="{{ url_for('explorer.explore', path=item.name if not path else path + '/' + item.name) }}"
+        >
+          {{ item.name }}/
+        </a>
+      </li>
+      {% else %}
+      <li>{{ item.name }}</li>
+      {% endif %} {% endfor %}
+    </ul>
+  </body>
+</html>
